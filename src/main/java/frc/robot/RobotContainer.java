@@ -23,6 +23,7 @@ import frc.robot.subsystems.stabilizer.StabilizerSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.leds.Leds;
 import frc.robot.subsystems.thumbwheel.Thumbwheel;
+import frc.robot.subsystems.photovision.Photonvison;
 
 
 import java.io.File;
@@ -50,6 +51,8 @@ public class RobotContainer {
   private Thumbwheel thumb;
   private Limelight limelight;
   private Leds leds;
+
+  private Photonvison photonvision;
   
 
   // private TeleopCommands teleop;
@@ -77,6 +80,8 @@ public class RobotContainer {
     leds = new Leds();
     teleop = new TeleopCommands(this);
     auto = new AutoCommands(this);
+
+    photonvision = new Photonvison();
 
   }
 
@@ -119,6 +124,10 @@ public class RobotContainer {
 
   public Limelight getLimelight() {
     return limelight;
+  }
+
+  public Photonvison getPhotonvison() {
+    return photonvision;
   }
 
     
