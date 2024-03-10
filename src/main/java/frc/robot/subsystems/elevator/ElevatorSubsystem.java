@@ -94,6 +94,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID.setReference(position, DeckConfig.controlType);
   }
 
+  public void setCurrent(int currentLimit)
+  {
+    elevatorMotor.setSmartCurrentLimit(currentLimit, ElevatorConfig.smartCurrentFreeLimit);
+  }
+
   public void resetEncoder()
   {
     elevatorEncoder.setPosition(0);

@@ -18,6 +18,7 @@ import frc.robot.commands.deck.JogDeck;
 import frc.robot.commands.deck.SetDeckPosition;
 import frc.robot.commands.elevator.JogElevator;
 import frc.robot.commands.elevator.ResetElevatorPosition;
+import frc.robot.commands.elevator.SetElevatorCurrent;
 import frc.robot.commands.elevator.SetElevatorPosition;
 import frc.robot.commands.intake.AmpDeckCommand;
 import frc.robot.commands.intake.RunIntakeCommand;
@@ -32,6 +33,7 @@ import frc.robot.commands.shooter.RevShooter;
 import frc.robot.commands.stabilizer.SetStabilizerPosition;
 import frc.robot.subsystems.climber.ClimberPositions;
 import frc.robot.subsystems.deck.DeckPositions;
+import frc.robot.subsystems.elevator.ElevatorConfig;
 import frc.robot.subsystems.elevator.ElevatorPositions;
 import frc.robot.subsystems.shooter.ShooterConfig;
 import frc.robot.subsystems.stabilizer.StabilizerPositions;
@@ -181,14 +183,28 @@ public class TeleopCommands {
         // Intake sequence: extend elevator, lower deck, and intake
         runIntake.whileTrue(
                 new SetDeckPosition(robot.getDeck(), DeckPositions.home)
-                        .andThen(new SetElevatorPosition(robot.getElevator(), ElevatorPositions.intake)).andThen(
-                                new SetDeckPosition(robot.getDeck(), DeckPositions.intake)
-                                        .alongWith(new RunIntakeCommand(robot.getIntake())))
-                        .andThen(new SetDeckPosition(robot.getDeck(), DeckPositions.home)
-                                .alongWith(new SetElevatorPosition(robot.getElevator(), ElevatorPositions.zero))))
+                .andThen(
+                        new SetElevatorPosition(robot.getElevator(), ElevatorPositions.intake)
+                )
+                .andThen(
+                        new SetElevatorCurrent(robot.getElevator(), 3)
+                )
+                .andThen(
+                        new SetDeckPosition(robot.getDeck(), DeckPositions.intake)
+                        .alongWith(new RunIntakeCommand(robot.getIntake()))
+                )
+                .andThen(
+                        new SetElevatorCurrent(robot.getElevator(), ElevatorConfig.smartCurrentStallLimit)
+                )
+                .andThen(
+                        new SetDeckPosition(robot.getDeck(), DeckPositions.home)
+                        .alongWith(new SetElevatorPosition(robot.getElevator(), ElevatorPositions.zero))
+                )
+                )
                 .onFalse(
                         new SetDeckPosition(robot.getDeck(), DeckPositions.home)
-                                .alongWith(new SetElevatorPosition(robot.getElevator(), ElevatorPositions.zero)));
+                        .alongWith(new SetElevatorPosition(robot.getElevator(), ElevatorPositions.zero))
+                );
 
         jogIntake.whileTrue(new RunIntakeCommand(robot.getIntake()));
 
