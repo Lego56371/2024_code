@@ -116,7 +116,7 @@ public class ClimberSubsystem extends SubsystemBase {
       .withWidget(BuiltInWidgets.kNumberBar)
       .withProperties(Map.of("min", 0, "max", 290))
       .withSize(2, 1)
-      .withPosition(0, 0)
+      .withPosition(1, 1)
       .getEntry();
 
       

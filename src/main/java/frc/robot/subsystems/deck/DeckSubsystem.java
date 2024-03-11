@@ -105,7 +105,7 @@ public class DeckSubsystem extends SubsystemBase {
     .add("Deck Position", deckEncoder.getPosition())
     .withWidget(BuiltInWidgets.kDial)
     .withProperties(Map.of("min", 0, "max", 150))
-    .withPosition(0, 2)
+    .withPosition(1, 0)
     .getEntry();
   }
 

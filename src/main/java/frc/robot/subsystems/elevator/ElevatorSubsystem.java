@@ -107,9 +107,9 @@ public class ElevatorSubsystem extends SubsystemBase {
    Shuffleboard.getTab("Drive Tab")
       .add("Elevator Position", elevatorEncoder.getPosition())
       .withWidget(BuiltInWidgets.kNumberBar)
-      .withProperties(Map.of("min", 0, "max", 50))
+      .withProperties(Map.of("min", 0, "max", 75))
       .withSize(2, 1)
-      .withPosition(1, 1)
+      .withPosition(0, 2)
       .getEntry();
   }
 }
